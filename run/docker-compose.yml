@@ -1,0 +1,18 @@
+version: "3.3"
+
+services:
+  wechatDemo-devel:
+    image:  harbor.aibee.cn/web-bce/golang-dev:1.15.2.2
+    container_name: wechatDemo-dev-${USER}
+    network_mode: "host"
+    volumes:
+      - ../:/root/go/src/wechatDemo
+    working_dir: /root/go/src/wechatDemo
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/go/bin
+    entrypoint:
+      - bash
+      - -c
+      #- make ${TARGET:-dev} MAIN_PKG=${MAIN_PKG:-wechatDemo} ARG='${ARG}'
+      #- sleep 5m
+      - make run

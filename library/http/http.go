@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"io"
 	"io/ioutil"
 	"mime"
@@ -91,7 +92,7 @@ func Upload(url, fieldName string, file *os.File, wxr wxResp, desc ...string) (e
 	}
 	w.Close()
 
-	log.Debugf("url=%s, fieldName=%s, fileName=%s", url, fieldName, file.Name())
+	log.Printf("url=%s, fieldName=%s, fileName=%s", url, fieldName, file.Name())
 	resp, err := client.Post(url, contentType, buf)
 	if err != nil {
 		return err
@@ -126,8 +127,7 @@ func parseWXResp(resp *http.Response, wxr wxResp) error {
 	if err != nil {
 		return err
 	}
-
-	log.Trace("%s", js)
+	log.Printf("%s", js)
 	if wxr == nil {
 		wxr = &WXError{}
 	}
